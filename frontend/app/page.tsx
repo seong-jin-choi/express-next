@@ -2,8 +2,6 @@ import { headers } from "next/headers";
 import { montserrat, notoSansKR, pretendard } from "./fonts";
 
 export default function Home() {
-  const headersList = headers();
-  console.log(headersList);
   return (
     <div>
       <h1 style={{ fontSize: "30px", marginTop: "10px", marginBlock: "10px" }}>

@@ -1,7 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import errorImage from "../assets/img/illustrations/page-misc-error.png";
-import bgImage from "../assets/img/illustrations/bg-shape-image-light.png";
 
 export default function NotFound() {
   return (
@@ -15,14 +13,10 @@ export default function NotFound() {
           <Link href="/" className="btn btn-primary mb-4">
             홈으로
           </Link>
-          <div className="mt-4">
-            <Image src={errorImage} alt="page-misc-error" width={225} />
-          </div>
+          <div className="mt-4">{/* <Image src={errorImage} alt="page-misc-error" width={225} /> */}</div>
         </div>
       </div>
-      <div className="container-fluid misc-bg-wrapper">
-        <Image src={bgImage} alt="page-misc-error" />
-      </div>
+      <div className="container-fluid misc-bg-wrapper">{/* <Image src={bgImage} alt="page-misc-error" /> */}</div>
     </>
   );
 }

@@ -8,21 +8,6 @@ import Product from "../models/Product";
 import Magazine from "../models/Magazine";
 
 // 관리자 로그인
-export const getAdminLogin = (req, res) => {
-  try {
-    if (req.user) {
-      res.send(`<script>location.href="${routes.admin}${routes.adminUser}"</script>`);
-    } else {
-      res.render("admin/adminLogin");
-    }
-  } catch (err) {
-    console.log(err);
-    res.send(
-      `<script>alert("오류가 발생했습니다:\\r\\n${err}");\
-      location.href="${routes.home}"</script>`
-    );
-  }
-};
 export const postAdminLogin = (req, res, next) => {
   try {
     passport.authenticate("local", (err, user) => {
@@ -34,32 +19,19 @@ export const postAdminLogin = (req, res, next) => {
       } else {
         req.logIn(user, (e) => {
           if (e) throw new Error(e);
+          console.log(user);
           console.log(req.headers.referer);
-          res.status(200).redirect(req.headers.referer);
+          res.sendStatus(200);
         });
       }
     })(req, res, next);
   } catch (err) {
+    console.log(err);
     res.status(500).json({ message: "알 수 없는 오류가 발생했습니다.", err });
   }
 };
 
 // 회원가입
-export const getAdminRegister = (req, res) => {
-  try {
-    if (req.user) {
-      res.send(`<script>location.href="${routes.admin}${routes.adminUser}"</script>`);
-    } else {
-      res.render("admin/adminRegister");
-    }
-  } catch (err) {
-    console.log(err);
-    res.send(
-      `<script>alert("오류가 발생했습니다:\\r\\n${err}");\
-      location.href="${routes.home}"</script>`
-    );
-  }
-};
 export const postAdminRegister = async (req, res) => {
   try {
     const { body } = req;
@@ -78,6 +50,7 @@ export const postAdminRegister = async (req, res) => {
       res.status(201).json({ message: "회원가입이 완료되었습니다.\\r\\n마스터 관리자 승인 후 로그인 하세요." });
     }
   } catch (err) {
+    console.log(err);
     res.status(500).json({ message: "알 수 없는 오류가 발생했습니다.", err });
   }
 };
@@ -87,58 +60,35 @@ export const adminLogout = (req, res) => {
   try {
     req.logout();
     req.session.destroy(() => {
-      res.send(`<script>location.href="${routes.admin}"</script>`);
+      res.sendStatus(200);
     });
   } catch (err) {
     console.log(err);
-    res.send(
-      `<script>alert("오류가 발생했습니다:\\r\\n${err}");\
-      location.href="${routes.home}"</script>`
-    );
+    res.status(500).json({ message: "알 수 없는 오류가 발생했습니다.", err });
   }
 };
 
 // 비밀번호 변경
-export const getAdminChangePW = (req, res) => {
-  try {
-    res.render("admin/adminChangePW");
-  } catch (err) {
-    console.log(err);
-    res.send(
-      `<script>alert("오류가 발생했습니다:\\r\\n${err}");\
-      location.href="${routes.home}"</script>`
-    );
-  }
-};
 export const postAdminChangePW = async (req, res) => {
   try {
     const {
       body: { newPassword, newPassword1 },
     } = req;
     if (newPassword !== newPassword1) {
-      res.send(`<script>\
-                  alert("비밀번호가 일치하지 않습니다.\\r\\n다시 한 번 확인해 주세요.");\
-                  history.go(-1);\
-                </script>`);
+      res.status(400).json({ message: "비밀번호가 일치하지 않습니다.\\r\\n다시 한 번 확인해 주세요." });
     } else {
       const user = await User.findById({ _id: req.user._id });
       await user.setPassword(newPassword);
       await user.save();
 
       req.logout();
-      req.session.destroy((e) => {
-        res.send(
-          `<script>alert("비밀번호가 변경되었습니다. \\r\\n다시 로그인해주세요.");\
-          location.href="${routes.admin}"</script>`
-        );
+      req.session.destroy(() => {
+        res.sendStatus(200);
       });
     }
   } catch (err) {
     console.log(err);
-    res.send(
-      `<script>alert("오류가 발생했습니다:\\r\\n${err}");\
-      location.href="${routes.home}"</script>`
-    );
+    res.status(500).json({ message: "알 수 없는 오류가 발생했습니다.", err });
   }
 };
 
