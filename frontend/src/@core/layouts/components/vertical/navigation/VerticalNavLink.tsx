@@ -94,7 +94,6 @@ const VerticalNavLink = ({
   navigationBorderWidth
 }: Props) => {
   // ** Hooks
-  const router = useRouter()
 
   // ** Vars
   const { navCollapsed } = settings
@@ -102,11 +101,8 @@ const VerticalNavLink = ({
   const icon = parent && !item.icon ? themeConfig.navSubItemIcon : item.icon
 
   const isNavLinkActive = () => {
-    if (router.pathname === item.path || handleURLQueries(router, item.path)) {
-      return true
-    } else {
-      return false
-    }
+    //@TODO:수정 필요
+    return true
   }
 
   return (

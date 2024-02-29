@@ -6,14 +6,8 @@ import CssBaseline from '@mui/material/CssBaseline'
 import GlobalStyles from '@mui/material/GlobalStyles'
 import { ThemeProvider, createTheme, responsiveFontSizes } from '@mui/material/styles'
 
-// ** Type Imports
-import { Settings } from 'src/@core/context/settingsContext'
-
 // ** Theme Config
 import themeConfig from 'src/configs/themeConfig'
-
-// ** Direction component for LTR or RTL
-import Direction from 'src/layouts/components/Direction'
 
 // ** Theme
 import themeOptions from './ThemeOptions'
@@ -21,17 +15,33 @@ import themeOptions from './ThemeOptions'
 // ** Global Styles
 import GlobalStyling from './globalStyles'
 
+// ** Types Import
+
+import { Settings } from '../context/settingsContext'
+
 interface Props {
-  settings: Settings
   children: ReactNode
 }
 
-const ThemeComponent = (props: Props) => {
+const ThemeComponent = ({ children }: Props) => {
   // ** Props
-  const { settings, children } = props
-
-  // ** Pass merged ThemeOptions (of core and user) to createTheme function
-  let theme = createTheme(themeOptions(settings, 'light'))
+  const initialSettings: Settings = {
+    themeColor: 'primary',
+    mode: themeConfig.mode,
+    skin: themeConfig.skin,
+    footer: themeConfig.footer,
+    layout: themeConfig.layout,
+    lastLayout: themeConfig.layout,
+    direction: themeConfig.direction,
+    navHidden: themeConfig.navHidden,
+    appBarBlur: themeConfig.appBarBlur,
+    navCollapsed: themeConfig.navCollapsed,
+    contentWidth: themeConfig.contentWidth,
+    toastPosition: themeConfig.toastPosition,
+    verticalNavToggleType: themeConfig.verticalNavToggleType,
+    appBar: themeConfig.layout === 'horizontal' && themeConfig.appBar === 'hidden' ? 'fixed' : themeConfig.appBar
+  }
+  let theme = createTheme(themeOptions(initialSettings, 'light'))
 
   // ** Set responsive font sizes to true
   if (themeConfig.responsiveFontSizes) {
@@ -40,11 +50,9 @@ const ThemeComponent = (props: Props) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Direction direction={settings.direction}>
-        <CssBaseline />
-        <GlobalStyles styles={() => GlobalStyling(theme) as any} />
-        {children}
-      </Direction>
+      <CssBaseline />
+      <GlobalStyles styles={() => GlobalStyling(theme) as any} />
+      {children}
     </ThemeProvider>
   )
 }

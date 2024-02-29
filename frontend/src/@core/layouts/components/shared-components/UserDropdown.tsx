@@ -1,9 +1,6 @@
 // ** React Imports
 import { useState, SyntheticEvent, Fragment } from 'react'
 
-// ** Next Import
-import { useRouter } from 'next/router'
-
 // ** MUI Imports
 import Box from '@mui/material/Box'
 import Menu from '@mui/material/Menu'
@@ -47,7 +44,6 @@ const UserDropdown = (props: Props) => {
   const [anchorEl, setAnchorEl] = useState<Element | null>(null)
 
   // ** Hooks
-  const router = useRouter()
 
   // ** Vars
   const { direction } = settings
@@ -58,7 +54,6 @@ const UserDropdown = (props: Props) => {
 
   const handleDropdownClose = (url?: string) => {
     if (url) {
-      router.push(url)
     }
     setAnchorEl(null)
   }

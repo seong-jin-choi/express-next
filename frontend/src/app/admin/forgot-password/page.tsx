@@ -1,3 +1,5 @@
+'use client'
+
 // ** React Imports
 import { ReactNode } from 'react'
 
@@ -151,9 +153,5 @@ const ForgotPassword = () => {
     </Box>
   )
 }
-
-ForgotPassword.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>
-
-ForgotPassword.guestGuard = true
 
 export default ForgotPassword

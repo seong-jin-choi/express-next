@@ -1,14 +1,13 @@
+'use client'
+
 // ** React Imports
-import { useState, ReactNode, MouseEvent } from 'react'
+import { useState } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Components
-import Alert from '@mui/material/Alert'
 import Button from '@mui/material/Button'
-import Divider from '@mui/material/Divider'
-import Checkbox from '@mui/material/Checkbox'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import InputLabel from '@mui/material/InputLabel'
@@ -33,12 +32,6 @@ import { yupResolver } from '@hookform/resolvers/yup'
 // ** Hooks
 import useBgColor from 'src/@core/hooks/useBgColor'
 import { useSettings } from 'src/@core/hooks/useSettings'
-
-// ** Configs
-import themeConfig from 'src/configs/themeConfig'
-
-// ** Layout Import
-import BlankLayout from 'src/@core/layouts/BlankLayout'
 
 // ** Demo Imports
 import FooterIllustrationsV2 from 'src/layouts/FooterIllustrationsV2'
@@ -104,7 +97,6 @@ const LoginPage = () => {
 
   // ** Hooks
   const theme = useTheme()
-  const bgColors = useBgColor()
   const { settings } = useSettings()
   const hidden = useMediaQuery(theme.breakpoints.down('md'))
 
@@ -244,9 +236,4 @@ const LoginPage = () => {
     </Box>
   )
 }
-
-LoginPage.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>
-
-LoginPage.guestGuard = true
-
 export default LoginPage
