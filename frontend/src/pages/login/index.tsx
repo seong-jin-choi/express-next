@@ -171,28 +171,60 @@ const LoginPage = () => {
             </Box>
             <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
               <FormControl fullWidth sx={{ mb: 6 }}>
-                <InputLabel htmlFor='userID'>아이디</InputLabel>
-                <OutlinedInput label='아이디' id='userID' placeholder='아이디' />
+                <Controller
+                  name='email'
+                  control={control}
+                  rules={{ required: true }}
+                  render={({ field: { value, onChange, onBlur } }) => (
+                    <TextField
+                      autoFocus
+                      label='Email'
+                      value={value}
+                      onBlur={onBlur}
+                      onChange={onChange}
+                      error={Boolean(errors.email)}
+                      placeholder='admin@vuexy.com'
+                    />
+                  )}
+                />
+                {errors.email && <FormHelperText sx={{ color: 'error.main' }}>{errors.email.message}</FormHelperText>}
               </FormControl>
               <FormControl fullWidth sx={{ mb: 6 }}>
-                <InputLabel htmlFor='password'>비밀번호</InputLabel>
-                <OutlinedInput
-                  label='비밀번호'
-                  id='password'
-                  type={showPassword ? 'text' : 'password'}
-                  placeholder='********'
-                  endAdornment={
-                    <InputAdornment position='end'>
-                      <IconButton
-                        edge='end'
-                        onMouseDown={e => e.preventDefault()}
-                        onClick={() => setShowPassword(!showPassword)}
-                      >
-                        <Icon icon={showPassword ? 'tabler:eye' : 'tabler:eye-off'} fontSize={20} />
-                      </IconButton>
-                    </InputAdornment>
-                  }
+                <InputLabel htmlFor='auth-login-v2-password' error={Boolean(errors.password)}>
+                  비밀번호
+                </InputLabel>
+                <Controller
+                  name='password'
+                  control={control}
+                  rules={{ required: true }}
+                  render={({ field: { value, onChange, onBlur } }) => (
+                    <OutlinedInput
+                      value={value}
+                      onBlur={onBlur}
+                      label='Password'
+                      onChange={onChange}
+                      id='auth-login-v2-password'
+                      error={Boolean(errors.password)}
+                      type={showPassword ? 'text' : 'password'}
+                      endAdornment={
+                        <InputAdornment position='end'>
+                          <IconButton
+                            edge='end'
+                            onMouseDown={e => e.preventDefault()}
+                            onClick={() => setShowPassword(!showPassword)}
+                          >
+                            <Icon icon={showPassword ? 'tabler:eye' : 'tabler:eye-off'} fontSize={20} />
+                          </IconButton>
+                        </InputAdornment>
+                      }
+                    />
+                  )}
                 />
+                {errors.password && (
+                  <FormHelperText sx={{ color: 'error.main' }} id=''>
+                    {errors.password.message}
+                  </FormHelperText>
+                )}
               </FormControl>
               <Button fullWidth size='large' type='submit' variant='contained' sx={{ mb: 4 }}>
                 로그인
