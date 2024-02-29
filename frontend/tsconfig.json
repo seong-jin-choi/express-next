@@ -19,13 +19,8 @@
     "paths": {
       "apexcharts": ["./node_modules/apexcharts-clevision"],
       "apexcharts/*": ["./node_modules/apexcharts-clevision/*"]
-    },
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ]
+    }
   },
-  "include": ["src", "declaration.d.ts", ".next/types/**/*.ts"],
+  "include": ["src", "declaration.d.ts"],
   "exclude": ["node_modules"]
 }
