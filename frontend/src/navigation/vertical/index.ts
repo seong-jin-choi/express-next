@@ -22,8 +22,8 @@ const navigation = (): VerticalNavItemsType => {
     },
     {
       path: '/test',
-      title: 'test',
-      icon: 'tabler:test-pipe'
+      title: '유저 관리',
+      icon: 'tabler:user'
     }
   ]
 }
