@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, MouseEvent, useCallback } from 'react'
+import { useState, useCallback } from 'react'
 
 // ** MUI Imports
 import Box from '@mui/material/Box'

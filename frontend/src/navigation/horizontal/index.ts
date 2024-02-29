@@ -13,11 +13,9 @@ const navigation = (): HorizontalNavItemsType => [
     icon: 'tabler:mail'
   },
   {
-    path: '/acl',
-    action: 'read',
-    subject: 'acl-page',
-    title: 'Access Control',
-    icon: 'tabler:shield'
+    path: '/test',
+    title: '유저 관리',
+    icon: 'tabler:user'
   }
 ]
 
