@@ -1,7 +1,8 @@
 'use client'
 
 // ** React Imports
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 // ** Next Imports
 import Link from 'next/link'
@@ -34,7 +35,6 @@ import { useSettings } from 'src/@core/hooks/useSettings'
 
 // ** Demo Imports
 import FooterIllustrationsV2 from 'src/layouts/FooterIllustrationsV2'
-import axios from 'axios'
 
 // ** Styled Components
 const LoginIllustration = styled('img')(({ theme }) => ({
@@ -93,6 +93,7 @@ interface FormData {
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false)
+  const router = useRouter()
 
   // ** Hooks
   const theme = useTheme()
@@ -115,13 +116,23 @@ const LoginPage = () => {
 
   const onSubmit = async (data: FormData) => {
     const { email, password } = data
-    const login = await axios.post('http://localhost:8080/admin/login', { userID: email, password })
-    //@TODO: 로그인 비밀번호/ 아이디 올바르지 않을 경우 처리하기 (react-hook-form)
 
-    if (login.status === 200) {
-      console.log(login)
-      console.log(login.headers)
-    }
+    await fetch('/api/login', {
+      method: 'POST',
+      body: JSON.stringify({ userID: email, password })
+    })
+      .then(response => {
+        // 응답 데이터의 JSON을 파싱
+        return response.json()
+      })
+      .then(data => {
+        // 파싱된 JSON 데이터를 콘솔에 출력하거나 다른 작업을 수행
+        if (data.success === true) {
+          router.push('/admin/dashboard')
+        }
+      })
+
+    //@TODO: 로그인 비밀번호/ 아이디 올바르지 않을 경우 처리하기 (react-hook-form)
   }
 
   const imageSource = skin === 'bordered' ? 'auth-v2-login-illustration-bordered' : 'auth-v2-login-illustration'
