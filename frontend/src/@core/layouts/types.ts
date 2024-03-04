@@ -36,6 +36,7 @@ export type NavSectionTitle = {
   action?: string
   subject?: string
   sectionTitle: string
+  contentTitle?: string
 }
 
 export type NavGroup = {
@@ -45,6 +46,7 @@ export type NavGroup = {
   action?: string
   subject?: string
   badgeContent?: string
+  contentTitle?: string
   children?: (NavGroup | NavLink)[]
   badgeColor?: 'default' | 'primary' | 'secondary' | 'success' | 'error' | 'warning' | 'info'
 }
@@ -53,6 +55,7 @@ export type NavLink = {
   icon?: string
   path?: string
   title: string
+  contentTitle?: string
   auth?: boolean
   action?: string
   subject?: string

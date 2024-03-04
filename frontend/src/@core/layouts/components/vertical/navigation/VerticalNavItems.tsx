@@ -5,6 +5,7 @@ import { NavLink, NavGroup, LayoutProps, NavSectionTitle } from 'src/@core/layou
 import VerticalNavLink from './VerticalNavLink'
 import VerticalNavGroup from './VerticalNavGroup'
 import VerticalNavSectionTitle from './VerticalNavSectionTitle'
+import styled from 'styled-components'
 
 interface Props {
   parent?: NavGroup
@@ -21,6 +22,15 @@ interface Props {
   verticalNavItems?: LayoutProps['verticalLayoutProps']['navMenu']['navItems']
 }
 
+const Wrap = styled.div`
+  padding: 20px 28px 6px;
+`
+
+const Title = styled.span`
+  font-size: 13px;
+  color: #93909e;
+`
+
 const resolveNavItemComponent = (item: NavGroup | NavLink | NavSectionTitle) => {
   if ((item as NavSectionTitle).sectionTitle) return VerticalNavSectionTitle
   if ((item as NavGroup).children) return VerticalNavGroup
@@ -35,7 +45,14 @@ const VerticalNavItems = (props: Props) => {
   const RenderMenuItems = verticalNavItems?.map((item: NavGroup | NavLink | NavSectionTitle, index: number) => {
     const TagName: any = resolveNavItemComponent(item)
 
-    return <TagName {...props} key={index} item={item} />
+    return (
+      <>
+        <Wrap>
+          <Title>{item.contentTitle}</Title>
+          <TagName {...props} key={index} item={item} />
+        </Wrap>
+      </>
+    )
   })
 
   return <>{RenderMenuItems}</>
