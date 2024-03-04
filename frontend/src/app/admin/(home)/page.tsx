@@ -34,6 +34,7 @@ import { useSettings } from 'src/@core/hooks/useSettings'
 
 // ** Demo Imports
 import FooterIllustrationsV2 from 'src/layouts/FooterIllustrationsV2'
+import axios from 'axios'
 
 // ** Styled Components
 const LoginIllustration = styled('img')(({ theme }) => ({
@@ -77,7 +78,7 @@ const FormControlLabel = styled(MuiFormControlLabel)<FormControlLabelProps>(({ t
 
 const schema = yup.object().shape({
   email: yup.string().required(),
-  password: yup.string().min(5).required()
+  password: yup.string().required()
 })
 
 const defaultValues = {
@@ -112,9 +113,15 @@ const LoginPage = () => {
     resolver: yupResolver(schema)
   })
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit = async (data: FormData) => {
     const { email, password } = data
-    //@TODO: login
+    const login = await axios.post('http://localhost:8080/admin/login', { userID: email, password })
+    //@TODO: 로그인 비밀번호/ 아이디 올바르지 않을 경우 처리하기 (react-hook-form)
+
+    if (login.status === 200) {
+      console.log(login)
+      console.log(login.headers)
+    }
   }
 
   const imageSource = skin === 'bordered' ? 'auth-v2-login-illustration-bordered' : 'auth-v2-login-illustration'
@@ -164,7 +171,6 @@ const LoginPage = () => {
                     <TextField
                       autoFocus
                       label='아이디'
-                      value={value}
                       onBlur={onBlur}
                       onChange={onChange}
                       error={Boolean(errors.email)}
@@ -182,9 +188,8 @@ const LoginPage = () => {
                   name='password'
                   control={control}
                   rules={{ required: true }}
-                  render={({ field: { value, onChange, onBlur } }) => (
+                  render={({ field: { onChange, onBlur } }) => (
                     <OutlinedInput
-                      value={value}
                       onBlur={onBlur}
                       label='비밀번호'
                       onChange={onChange}

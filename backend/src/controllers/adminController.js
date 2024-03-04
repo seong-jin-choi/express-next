@@ -19,8 +19,6 @@ export const postAdminLogin = (req, res, next) => {
       } else {
         req.logIn(user, (e) => {
           if (e) throw new Error(e);
-          console.log(user);
-          console.log(req.headers.referer);
           res.sendStatus(200);
         });
       }

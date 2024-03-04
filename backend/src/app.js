@@ -1,4 +1,5 @@
 import "core-js/stable";
+import cors from "cors";
 import "regenerator-runtime";
 import express from "express";
 import helmet from "helmet";
@@ -20,6 +21,7 @@ import "./passport";
 
 const app = express();
 
+app.use(cors({ origin: "*", credential: "true" }));
 app.use(csp);
 app.use(
   helmet({

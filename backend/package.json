@@ -16,6 +16,7 @@
     "cookie-parser": "^1.4.6",
     "copy-to-clipboard": "^3.3.2",
     "core-js": "^3.22.2",
+    "cors": "^2.8.5",
     "crypto-js": "^4.1.1",
     "detect-browser": "^5.3.0",
     "dotenv": "^16.0.0",
