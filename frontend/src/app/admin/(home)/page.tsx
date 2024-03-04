@@ -30,7 +30,6 @@ import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 // ** Hooks
-import useBgColor from 'src/@core/hooks/useBgColor'
 import { useSettings } from 'src/@core/hooks/useSettings'
 
 // ** Demo Imports
@@ -77,13 +76,13 @@ const FormControlLabel = styled(MuiFormControlLabel)<FormControlLabelProps>(({ t
 }))
 
 const schema = yup.object().shape({
-  email: yup.string().email().required(),
+  email: yup.string().required(),
   password: yup.string().min(5).required()
 })
 
 const defaultValues = {
   password: 'admin',
-  email: 'admin@vuexy.com'
+  email: '아이디'
 }
 
 interface FormData {
@@ -92,7 +91,6 @@ interface FormData {
 }
 
 const LoginPage = () => {
-  const [rememberMe, setRememberMe] = useState<boolean>(true)
   const [showPassword, setShowPassword] = useState<boolean>(false)
 
   // ** Hooks
@@ -116,12 +114,7 @@ const LoginPage = () => {
 
   const onSubmit = (data: FormData) => {
     const { email, password } = data
-    auth.login({ email, password, rememberMe }, () => {
-      setError('email', {
-        type: 'manual',
-        message: 'Email or Password is invalid'
-      })
-    })
+    //@TODO: login
   }
 
   const imageSource = skin === 'bordered' ? 'auth-v2-login-illustration-bordered' : 'auth-v2-login-illustration'
@@ -170,12 +163,12 @@ const LoginPage = () => {
                   render={({ field: { value, onChange, onBlur } }) => (
                     <TextField
                       autoFocus
-                      label='Email'
+                      label='아이디'
                       value={value}
                       onBlur={onBlur}
                       onChange={onChange}
                       error={Boolean(errors.email)}
-                      placeholder='admin@vuexy.com'
+                      placeholder='아이디'
                     />
                   )}
                 />
@@ -193,7 +186,7 @@ const LoginPage = () => {
                     <OutlinedInput
                       value={value}
                       onBlur={onBlur}
-                      label='Password'
+                      label='비밀번호'
                       onChange={onChange}
                       id='auth-login-v2-password'
                       error={Boolean(errors.password)}
