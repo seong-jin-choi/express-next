@@ -122,20 +122,15 @@ const columns: GridColDef[] = [
 const UserList = () => {
   // ** State
   const [testUser, setTestUser] = useState(fakeUsers)
-  const [value, setValue] = useState<string>('')
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })
-
-  const handleFilter = useCallback((val: string) => {
-    setValue(val)
-  }, [])
 
   return (
     <Grid container spacing={6.5}>
       <Grid item xs={12}>
         <Card>
-          <CardHeader title='검색 필터' />
+          <CardHeader title='유저 관리' />
           <Divider sx={{ m: '0 !important' }} />
-          <TableHeader value={value} handleFilter={handleFilter} />
+          <TableHeader />
           <DataGrid
             autoHeight
             rowHeight={62}

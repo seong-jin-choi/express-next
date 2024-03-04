@@ -25,6 +25,7 @@ export async function middleware(request: NextRequest) {
         headers: { 'Content-Type': 'application/json', Cookie: `${accessToken.name}=${accessToken.value}; ` }
       })
       const data = await res.json()
+
       if (data.role === 'admin' || data.role === 'master') {
         return NextResponse.redirect(new URL('/admin/dashboard', request.url))
       }

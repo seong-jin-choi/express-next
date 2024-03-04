@@ -45,7 +45,6 @@ const Toolbar = styled(MuiToolbar)<ToolbarProps>(({ theme }) => ({
 const LayoutAppBar = (props: Props) => {
   // ** Props
   const { settings, appBarProps, appBarContent: userAppBarContent } = props
-
   // ** Vars
   const { skin, appBar, appBarBlur, contentWidth } = settings
 

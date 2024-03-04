@@ -1,19 +1,12 @@
-// ** MUI Imports
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
-
-// ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-interface TableHeaderProps {
-  value: string
-  handleFilter: (val: string) => void
-}
-
-const TableHeader = (props: TableHeaderProps) => {
-  // ** Props
-  const { handleFilter, value } = props
+const TableHeader = () => {
+  const handleFilter = () => {
+    return
+  }
 
   return (
     <Box
@@ -31,15 +24,15 @@ const TableHeader = (props: TableHeaderProps) => {
       <Button color='secondary' variant='outlined' startIcon={<Icon icon='tabler:upload' />}>
         Export
       </Button>
-      <Box sx={{ rowGap: 2, display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
-        <TextField
-          size='small'
-          value={value}
-          sx={{ mr: 4 }}
-          placeholder='Search User'
-          onChange={e => handleFilter(e.target.value)}
-        />
-      </Box>
+      {/* TODO: Submit */}
+      <form onSubmit={e => e.preventDefault()} style={{ display: 'flex' }}>
+        <Box sx={{ rowGap: 2, display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
+          <TextField size='small' sx={{ mr: 2 }} placeholder='검색어를 입력하세요...' onChange={e => handleFilter()} />
+        </Box>
+        <Button type='submit' variant='contained' size='large'>
+          검색
+        </Button>
+      </form>
     </Box>
   )
 }

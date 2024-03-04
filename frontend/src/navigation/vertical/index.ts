@@ -14,8 +14,8 @@ const navigation = (): VerticalNavItemsType => {
       icon: 'tabler:mail'
     },
     {
-      path: '/test',
       title: '유저 관리',
+      path: '/test',
       icon: 'tabler:user'
     }
   ]
