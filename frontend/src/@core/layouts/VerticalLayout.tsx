@@ -97,7 +97,6 @@ const VerticalLayout = (props: LayoutProps) => {
             appBarProps={verticalLayoutProps.appBar?.componentProps}
             {...props}
           />
-
           {/* Content */}
           <ContentWrapper
             className='layout-page-content'
@@ -115,9 +114,6 @@ const VerticalLayout = (props: LayoutProps) => {
           >
             {children}
           </ContentWrapper>
-
-          {/* Footer Component */}
-          <Footer footerStyles={footerProps?.sx} footerContent={footerProps?.content} {...props} />
         </MainContentWrapper>
       </VerticalLayoutWrapper>
 

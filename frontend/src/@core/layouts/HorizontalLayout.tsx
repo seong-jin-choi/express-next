@@ -173,8 +173,6 @@ const HorizontalLayout = (props: LayoutProps) => {
         >
           {children}
         </ContentWrapper>
-        {/* Footer */}
-        <Footer {...props} footerStyles={footerProps?.sx} footerContent={footerProps?.content} />
         {/* Customizer */}
         {themeConfig.disableCustomizer || hidden ? null : <Customizer />}
         {/* Scroll to top button */}
