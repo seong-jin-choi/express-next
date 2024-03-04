@@ -1,14 +1,11 @@
 import StyledComponentsRegistry from '@/src/lib/registry'
 import '../../styles/globals.css'
-import MuiThemeProvider from '../lib/muiThemeProvider'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang='ko'>
+    <html lang='en'>
       <body>
-        <MuiThemeProvider>
-          <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
-        </MuiThemeProvider>
+        <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
       </body>
     </html>
   )
