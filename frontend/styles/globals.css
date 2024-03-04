@@ -33,7 +33,7 @@
 html,
 body {
   min-height: 100%;
-  font-family: 'Pretendard', sans-serif;
+  font-family: "'Pretendard', sans-serif";
 }
 
 #__next {
