@@ -110,10 +110,7 @@ export const adminUser = async (req, res) => {
     }
     // END: 검색 기능이 있을 경우
 
-    const [adminItems, totalCount] = await Promise.all([
-      User.find(findQuery).sort(sortQuery).limit(req.query.limit).skip(req.skip).exec(),
-      User.countDocuments(),
-    ]);
+    const [adminItems, totalCount] = await Promise.all([User.find(findQuery).sort(sortQuery).limit(req.query.limit).skip(req.skip).exec(), User.countDocuments()]);
     const pageCount = Math.ceil(totalCount / req.query.limit);
     const pages = paginate.getArrayPages(req)(10, pageCount, req.query.page);
 
@@ -233,10 +230,7 @@ export const adminSample = async (req, res) => {
     // END: 검색 기능이 있을 경우
 
     // BEGIN: pagination 데이터
-    const [adminItems, totalCount] = await Promise.all([
-      Sample.find(findQuery).sort(sortQuery).limit(limit).skip(req.skip).exec(),
-      Sample.countDocuments(findQuery),
-    ]);
+    const [adminItems, totalCount] = await Promise.all([Sample.find(findQuery).sort(sortQuery).limit(limit).skip(req.skip).exec(), Sample.countDocuments(findQuery)]);
     const pageCount = Math.ceil(totalCount / limit);
     const pages = paginate.getArrayPages(req)(10, pageCount, req.query.page);
     // END: pagination 데이터
@@ -406,10 +400,7 @@ export const adminProduct = async (req, res) => {
     // END: 검색 기능이 있을 경우
 
     // BEGIN: pagination 데이터
-    const [adminItems, totalCount] = await Promise.all([
-      Product.find(findQuery).sort(sortQuery).limit(limit).skip(req.skip).exec(),
-      Product.countDocuments(findQuery),
-    ]);
+    const [adminItems, totalCount] = await Promise.all([Product.find(findQuery).sort(sortQuery).limit(limit).skip(req.skip).exec(), Product.countDocuments(findQuery)]);
     const pageCount = Math.ceil(totalCount / limit);
     const pages = paginate.getArrayPages(req)(10, pageCount, req.query.page);
     // END: pagination 데이터
@@ -573,10 +564,7 @@ export const adminMagazine = async (req, res) => {
     // END: 검색 기능이 있을 경우
 
     // BEGIN: pagination 데이터
-    const [adminItems, totalCount] = await Promise.all([
-      Magazine.find(findQuery).sort(sortQuery).limit(limit).skip(req.skip).exec(),
-      Magazine.countDocuments(findQuery),
-    ]);
+    const [adminItems, totalCount] = await Promise.all([Magazine.find(findQuery).sort(sortQuery).limit(limit).skip(req.skip).exec(), Magazine.countDocuments(findQuery)]);
     const pageCount = Math.ceil(totalCount / limit);
     const pages = paginate.getArrayPages(req)(10, pageCount, req.query.page);
     // END: pagination 데이터
