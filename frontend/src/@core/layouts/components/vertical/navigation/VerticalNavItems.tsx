@@ -49,8 +49,8 @@ const VerticalNavItems = (props: Props) => {
       <>
         <Wrap>
           <Title>{item.contentTitle}</Title>
-          <TagName {...props} key={index} item={item} />
         </Wrap>
+        <TagName {...props} key={index} item={item} />
       </>
     )
   })

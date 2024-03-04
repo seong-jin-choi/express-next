@@ -12,13 +12,7 @@ const navigation = (): VerticalNavItemsType => {
     {
       contentTitle: '샘플 관리',
       title: '샘플 데이터 관리',
-      path: '/admin/dashboard',
-      icon: 'tabler:test-pipe'
-    },
-    {
-      contentTitle: '매거진',
-      title: '샘플 데이터 관리22',
-      path: '/admin/dashboard',
+      path: '/admin/sample',
       icon: 'tabler:test-pipe'
     }
   ]
