@@ -146,6 +146,11 @@ const GlobalStyle = createGlobalStyle`
     }
     }
 
+
+    image {
+        display: block;
+        object-fit: cover;
+    }
     body{
         font-family: ${pretendard.style.fontFamily};
     }
