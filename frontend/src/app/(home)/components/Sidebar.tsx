@@ -138,6 +138,8 @@ const Nav = styled.nav<INav>`
     display: flex;
     padding-left: 40px;
     width: 100%;
+    transform: translateX(0px);
+    animation: none;
   }
 `
 const NavLinksWrap = styled.div`
