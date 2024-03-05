@@ -6,7 +6,10 @@ export async function middleware(request: NextRequest) {
 
   // 로그인 페이지 내부일경우
   if (request.nextUrl.pathname.startsWith('/admin/')) {
+    //관리자 계정 생성하기로 이동
+    if (request.nextUrl.pathname.endsWith('/register')) return NextResponse.next()
     if (!accessToken) return NextResponse.redirect(new URL('/admin', request.url))
+
     const res = await fetch('http://localhost:8080/api/auth', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Cookie: `${accessToken.name}=${accessToken.value}; ` }
@@ -38,3 +41,5 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: ['/admin/:path*']
 }
+
+//---------------------------------

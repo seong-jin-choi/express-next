@@ -1,3 +1,5 @@
+'use client'
+
 // ** Type Imports
 import { NavLink, NavGroup, LayoutProps, NavSectionTitle } from 'src/@core/layouts/types'
 

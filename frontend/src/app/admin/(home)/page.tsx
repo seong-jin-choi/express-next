@@ -128,6 +128,8 @@ const LoginPage = () => {
       .then(data => {
         // 파싱된 JSON 데이터를 콘솔에 출력하거나 다른 작업을 수행
         if (data.success === true) {
+          console.log('아임굿')
+
           router.push('/admin/dashboard')
         }
       })
@@ -233,7 +235,7 @@ const LoginPage = () => {
               <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
                 <Typography sx={{ color: 'text.secondary', mr: 2 }}>계정이 없으신가요?</Typography>
                 <Typography variant='body2'>
-                  <LinkStyled href='/register' sx={{ fontSize: '1rem' }}>
+                  <LinkStyled href='/admin/register' sx={{ fontSize: '1rem' }}>
                     관리자 계정 생성하기
                   </LinkStyled>
                 </Typography>
