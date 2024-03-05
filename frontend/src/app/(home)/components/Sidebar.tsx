@@ -3,15 +3,14 @@
 import styled from 'styled-components'
 import NextImage from 'next/image'
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 
 const SidebarWrap = styled.div`
   height: auto;
-  padding-bottom: 0px;
   width: 100%;
-  background-color: #17171c;
-
+  position: absolute;
   @media (min-width: 1920px) {
-    padding-bottom: 24px;
+    position: static;
     min-width: 300px;
     height: 100vh;
     display: flex;
@@ -24,6 +23,7 @@ const Layout = styled.div`
   padding-right: 4px;
 `
 const TitleWrap = styled(Layout)`
+  background-color: #17171c;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -40,7 +40,7 @@ const TitleWrap = styled(Layout)`
   }
 `
 
-const ButtonWrap = styled.button`
+const MenuButton = styled.button`
   display: block;
   @media (min-width: 1920px) {
     display: none;
@@ -75,31 +75,41 @@ const NavItemsLable = styled.h2`
   font-size: 20px;
   font-weight: 700;
 `
-const Nav = styled.nav`
-  display: none;
+interface INav {
+  $isOpened: boolean
+}
+const Nav = styled.nav<INav>`
+  background-color: #17171c;
+  display: ${({ $isOpened }) => ($isOpened ? 'flex' : 'none')};
+  padding-bottom: 71px;
+  flex-direction: column;
+  padding-left: 34px;
+  padding-top: 20px;
+  padding-right: 14px;
+  gap: 59px;
+  height: calc(100vh - 80px);
+  width: 260px;
+
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    outline: none;
+    background: #17171c;
+    border-radius: 10px; /* 스크롤바 둥근 테두리 */
+    border: 3px solid rgba(0, 0, 0, 0.8);
+  }
+  &:hover {
+    &::-webkit-scrollbar-thumb {
+      background: #8e8e8e;
+      transition: background 0.5s ease;
+    }
+  }
   @media (min-width: 1920px) {
     display: flex;
-    flex-direction: column;
     padding-left: 40px;
-    padding-top: 20px;
-    padding-right: 14px;
-    gap: 59px;
-    overflow-y: scroll;
-    &::-webkit-scrollbar {
-      width: 10px;
-    }
-    &::-webkit-scrollbar-thumb {
-      outline: none;
-      background: #17171c;
-      border-radius: 10px; /* 스크롤바 둥근 테두리 */
-      border: 3px solid rgba(0, 0, 0, 0.8);
-    }
-    &:hover {
-      &::-webkit-scrollbar-thumb {
-        background: #8e8e8e;
-        transition: background 0.5s ease;
-      }
-    }
+    width: 100%;
   }
 `
 const NavLinksWrap = styled.div`
@@ -118,6 +128,15 @@ const NavLink = styled(Link)`
 `
 
 export default function () {
+  const [isMenuOpened, setIsMenuOpened] = useState(false)
+  const handleSlideMenu = () => {
+    setIsMenuOpened(prev => !prev)
+  }
+
+  useEffect(() => {
+    console.log(isMenuOpened)
+  }, [isMenuOpened])
+
   return (
     <SidebarWrap>
       <TitleWrap>
@@ -134,11 +153,11 @@ export default function () {
           </FlagWrap>
         </LogoContainer>
 
-        <ButtonWrap>
-          <NextImage src={'/menu_icon.png'} width={30} height={30} alt={'로고'} />
-        </ButtonWrap>
+        <MenuButton onClick={handleSlideMenu}>
+          <NextImage src={isMenuOpened ? '/close_icon.png' : '/menu_icon.png'} width={30} height={30} alt={'로고'} />
+        </MenuButton>
       </TitleWrap>
-      <Nav>
+      <Nav $isOpened={isMenuOpened}>
         <NavItemsWrap>
           <NavItemsLable>Main</NavItemsLable>
           <NavLinksWrap>
