@@ -1,9 +1,9 @@
 'use client'
 
-import styled from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 import NextImage from 'next/image'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 const SidebarWrap = styled.div`
   height: auto;
@@ -78,9 +78,35 @@ const NavItemsLable = styled.h2`
 interface INav {
   $isOpened: boolean
 }
+const openKeyframe = keyframes`
+  from {
+    transform: translateX(-260px);
+  }
+
+  to {
+    transform: translateX(0px);
+  }
+`
+
+const closeKeyframe = keyframes`
+  from {
+    transform: translateX(0px);
+  }
+
+  to {
+    transform: translateX(-260px);
+  }
+`
+
+const openAnimation = css`
+  animation: 0.2s ${openKeyframe} ease-in forwards;
+`
+const closeAnimation = css`
+  animation: 0.2s ${closeKeyframe} ease-in forwards;
+`
 const Nav = styled.nav<INav>`
   background-color: #17171c;
-  display: ${({ $isOpened }) => ($isOpened ? 'flex' : 'none')};
+  display: flex;
   padding-bottom: 71px;
   flex-direction: column;
   padding-left: 34px;
@@ -89,6 +115,8 @@ const Nav = styled.nav<INav>`
   gap: 59px;
   height: calc(100vh - 80px);
   width: 260px;
+  transform: translateX(-260px);
+  ${({ $isOpened }) => ($isOpened ? openAnimation : closeAnimation)}
 
   overflow-y: scroll;
   &::-webkit-scrollbar {
@@ -127,16 +155,7 @@ const NavLink = styled(Link)`
   }
 `
 
-export default function () {
-  const [isMenuOpened, setIsMenuOpened] = useState(false)
-  const handleSlideMenu = () => {
-    setIsMenuOpened(prev => !prev)
-  }
-
-  useEffect(() => {
-    console.log(isMenuOpened)
-  }, [isMenuOpened])
-
+export default function ({ isMenuOpened, handleSlideMenu }: { isMenuOpened: boolean; handleSlideMenu: () => void }) {
   return (
     <SidebarWrap>
       <TitleWrap>
