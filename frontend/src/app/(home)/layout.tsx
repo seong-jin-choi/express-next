@@ -1,5 +1,6 @@
 import StyledComponentsRegistry from '@/src/lib/registry'
 import GlobalStyle from './GlobalStyle'
+import SideBarLayout from './layout/SideBarLayout'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -7,7 +8,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body>
         <StyledComponentsRegistry>
           <GlobalStyle />
-          {children}
+          <SideBarLayout>{children}</SideBarLayout>
         </StyledComponentsRegistry>
       </body>
     </html>

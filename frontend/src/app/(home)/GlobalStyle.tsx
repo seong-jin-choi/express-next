@@ -110,7 +110,7 @@ const GlobalStyle = createGlobalStyle`
     line-height: 1;
     }
     ol,
-    ul {
+    ul,li {
     list-style: none;
     }
     blockquote,
@@ -146,13 +146,20 @@ const GlobalStyle = createGlobalStyle`
     }
     }
 
-
-    image {
+    button {
+        padding: 0;
+        border: 0;
+        background-color: transparent;
+        cursor: pointer;
+    }
+    img {
         display: block;
         object-fit: cover;
     }
     body{
         font-family: ${pretendard.style.fontFamily};
+        color: white;
+
     }
 `
 
