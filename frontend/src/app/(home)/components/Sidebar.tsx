@@ -8,7 +8,6 @@ import { useState } from 'react'
 const SidebarWrap = styled.div`
   height: auto;
   width: 100%;
-  position: absolute;
   @media (min-width: 1920px) {
     position: static;
     min-width: 300px;
@@ -98,25 +97,27 @@ const closeKeyframe = keyframes`
   }
 `
 
-const openAnimation = css`
-  animation: 0.2s ${openKeyframe} ease-in forwards;
-`
 const closeAnimation = css`
   animation: 0.2s ${closeKeyframe} ease-in forwards;
 `
+const openAnimation = css`
+  animation: 0.2s ${openKeyframe} ease-in forwards;
+`
+
 const Nav = styled.nav<INav>`
-  background-color: #17171c;
+  position: absolute;
   display: flex;
+  background-color: #17171c;
   padding-bottom: 71px;
   flex-direction: column;
   padding-left: 34px;
   padding-top: 20px;
   padding-right: 14px;
   gap: 59px;
-  height: calc(100vh - 80px);
+  height: calc(100% - 80px);
   width: 260px;
   transform: translateX(-260px);
-  ${({ $isOpened }) => ($isOpened ? openAnimation : closeAnimation)}
+  ${({ $isOpened }) => $isOpened && openAnimation}
 
   overflow-y: scroll;
   &::-webkit-scrollbar {
@@ -135,7 +136,7 @@ const Nav = styled.nav<INav>`
     }
   }
   @media (min-width: 1920px) {
-    display: flex;
+    position: static;
     padding-left: 40px;
     width: 100%;
     transform: translateX(0px);
@@ -156,8 +157,28 @@ const NavLink = styled(Link)`
     opacity: 0.6;
   }
 `
+interface IBackprop {
+  $isOpened: boolean
+}
 
-export default function ({ isMenuOpened, handleSlideMenu }: { isMenuOpened: boolean; handleSlideMenu: () => void }) {
+const Backprop = styled.div<IBackprop>`
+  position: absolute;
+  width: 100%;
+  height: calc(100% - 80px);
+  background-color: ${({ $isOpened }) => ($isOpened ? '#000000' : 'none')};
+  opacity: 0.6;
+  transition: background-color 0.2s ease-in-out;
+  @media (min-width: 1920px) {
+    display: none;
+    padding-top: 0px;
+  }
+`
+export default function () {
+  const [isMenuOpened, setIsMenuOpened] = useState(false)
+  const handleSlideMenu = () => {
+    setIsMenuOpened(prev => !prev)
+  }
+
   return (
     <SidebarWrap>
       <TitleWrap>
@@ -178,6 +199,7 @@ export default function ({ isMenuOpened, handleSlideMenu }: { isMenuOpened: bool
           <NextImage src={isMenuOpened ? '/close_icon.png' : '/menu_icon.png'} width={30} height={30} alt={'로고'} />
         </MenuButton>
       </TitleWrap>
+      <Backprop $isOpened={isMenuOpened} onClick={() => setIsMenuOpened(false)} />
       <Nav $isOpened={isMenuOpened}>
         <NavItemsWrap>
           <NavItemsLable>Main</NavItemsLable>
