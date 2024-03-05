@@ -86,6 +86,7 @@ const VerticalLayout = (props: LayoutProps) => {
             {...props}
           />
         )}
+
         <MainContentWrapper
           className='layout-content-wrapper'
           sx={{ ...(contentHeightFixed && { maxHeight: '100vh' }) }}
