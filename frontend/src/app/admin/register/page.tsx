@@ -120,8 +120,10 @@ const Register = () => {
       .then(data => {
         // 파싱된 JSON 데이터를 콘솔에 출력하거나 다른 작업을 수행
         if (data.success === true) {
-          console.log(data, '아임굿')
+          alert('회원가입이 완료되었습니다.\r\n마스터 관리자 승인 후 로그인 하세요')
           router.push('/admin')
+        } else {
+          alert(data.message)
         }
       })
 
@@ -178,40 +180,58 @@ const Register = () => {
               </FormControl>
               <FormControl fullWidth sx={{ mb: 6 }}>
                 <InputLabel htmlFor='password'>비밀번호</InputLabel>
-                <OutlinedInput
-                  label='비밀번호'
-                  id='password'
-                  type={showPassword ? 'text' : 'password'}
-                  endAdornment={
-                    <InputAdornment position='end'>
-                      <IconButton
-                        edge='end'
-                        onMouseDown={e => e.preventDefault()}
-                        onClick={() => setShowPassword(!showPassword)}
-                      >
-                        <Icon icon={showPassword ? 'tabler:eye' : 'tabler:eye-off'} fontSize={20} />
-                      </IconButton>
-                    </InputAdornment>
-                  }
+                <Controller
+                  name='password'
+                  control={control}
+                  rules={{ required: true }}
+                  render={({ field: { onChange, onBlur } }) => (
+                    <OutlinedInput
+                      onBlur={onBlur}
+                      label='비밀번호'
+                      onChange={onChange}
+                      id='auth-login-v2-password'
+                      type={showPassword ? 'text' : 'password'}
+                      endAdornment={
+                        <InputAdornment position='end'>
+                          <IconButton
+                            edge='end'
+                            onMouseDown={e => e.preventDefault()}
+                            onClick={() => setShowPassword(!showPassword)}
+                          >
+                            <Icon icon={showPassword ? 'tabler:eye' : 'tabler:eye-off'} fontSize={20} />
+                          </IconButton>
+                        </InputAdornment>
+                      }
+                    />
+                  )}
                 />
               </FormControl>
               <FormControl fullWidth sx={{ mb: 6 }}>
                 <InputLabel htmlFor='password2'>비밀번호 확인</InputLabel>
-                <OutlinedInput
-                  label='비밀번호 확인'
-                  id='password2'
-                  type={showConfirmPassword ? 'text' : 'password'}
-                  endAdornment={
-                    <InputAdornment position='end'>
-                      <IconButton
-                        edge='end'
-                        onMouseDown={e => e.preventDefault()}
-                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                      >
-                        <Icon icon={showPassword ? 'tabler:eye' : 'tabler:eye-off'} fontSize={20} />
-                      </IconButton>
-                    </InputAdornment>
-                  }
+                <Controller
+                  name='password2'
+                  control={control}
+                  rules={{ required: true }}
+                  render={({ field: { onChange, onBlur } }) => (
+                    <OutlinedInput
+                      onBlur={onBlur}
+                      label='비밀번호확인'
+                      onChange={onChange}
+                      id='auth-register-v2-password2'
+                      type={showConfirmPassword ? 'text' : 'password'}
+                      endAdornment={
+                        <InputAdornment position='end'>
+                          <IconButton
+                            edge='end'
+                            onMouseDown={e => e.preventDefault()}
+                            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                          >
+                            <Icon icon={showConfirmPassword ? 'tabler:eye' : 'tabler:eye-off'} fontSize={20} />
+                          </IconButton>
+                        </InputAdornment>
+                      }
+                    />
+                  )}
                 />
               </FormControl>
               <Button fullWidth size='large' type='submit' variant='contained' sx={{ mb: 4 }}>
