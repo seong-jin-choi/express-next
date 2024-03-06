@@ -9,7 +9,7 @@ const SidebarWrap = styled.div`
   height: auto;
   width: 100%;
   @media (min-width: 1920px) {
-    position: static;
+    position: fixed;
     min-width: 300px;
     height: 100vh;
     display: flex;
@@ -114,7 +114,7 @@ const Nav = styled.nav<INav>`
   padding-top: 20px;
   padding-right: 14px;
   gap: 59px;
-  height: calc(100% - 80px);
+  height: calc(100vh - 80px);
   width: 260px;
   transform: translateX(-260px);
   ${({ $isOpened }) => {
@@ -182,7 +182,7 @@ const fadeinAnimation = css`
 const Backprop = styled.div<IBackprop>`
   position: absolute;
   width: 100%;
-  height: calc(100% - 80px);
+  height: calc(100vh - 80px);
   ${({ $isOpened }) => $isOpened && fadeinAnimation};
   display: ${({ $isOpened }) => ($isOpened ? 'block' : 'none')};
   @media (min-width: 1920px) {
@@ -209,8 +209,8 @@ export default function () {
       <TitleWrap>
         <LogoContainer style={{ display: 'flex' }}>
           <LogoWrap>
-            <NextImage src={'/logo.png'} width={52} height={52} alt={'로고'} />
             <Link href={'/'}>
+              <NextImage src={'/logo.png'} width={52} height={52} alt={'로고'} />
               <Title>뚜비트</Title>
             </Link>
           </LogoWrap>
