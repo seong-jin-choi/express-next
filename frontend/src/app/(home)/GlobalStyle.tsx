@@ -159,7 +159,7 @@ const GlobalStyle = createGlobalStyle`
     body{
         font-family: ${pretendard.style.fontFamily};
         color: white;
-
+        background-color: #17171C;
     }
 `
 

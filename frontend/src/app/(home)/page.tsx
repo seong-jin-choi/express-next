@@ -1,4 +1,7 @@
 export default function Page() {
+  // 아트보드 : main
+  // WBS : Main
+
   return (
     <div style={{ color: 'red', fontSize: '1.5rem' }}>
       <p>
