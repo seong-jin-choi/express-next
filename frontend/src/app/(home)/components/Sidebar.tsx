@@ -3,7 +3,7 @@
 import styled, { css, keyframes } from 'styled-components'
 import NextImage from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const SidebarWrap = styled.div`
   height: auto;
@@ -75,7 +75,7 @@ const NavItemsLable = styled.h2`
   font-weight: 700;
 `
 interface INav {
-  $isOpened: boolean
+  $isOpened: boolean | null
 }
 const openKeyframe = keyframes`
   from {
@@ -117,7 +117,13 @@ const Nav = styled.nav<INav>`
   height: calc(100% - 80px);
   width: 260px;
   transform: translateX(-260px);
-  ${({ $isOpened }) => $isOpened && openAnimation}
+  ${({ $isOpened }) => {
+    if ($isOpened === true) {
+      return openAnimation
+    } else if ($isOpened === false) {
+      return closeAnimation
+    }
+  }}
 
   overflow-y: scroll;
   &::-webkit-scrollbar {
@@ -158,26 +164,45 @@ const NavLink = styled(Link)`
   }
 `
 interface IBackprop {
-  $isOpened: boolean
+  $isOpened: boolean | null
 }
+const fadeinKeyframe = keyframes`
+  from {
+    opacity: 0.0;
+  }
 
+  to {
+    background-color: #000000;
+    opacity: 0.6;
+  }
+`
+const fadeinAnimation = css`
+  animation: 0.2s ${fadeinKeyframe} ease-in forwards;
+`
 const Backprop = styled.div<IBackprop>`
   position: absolute;
   width: 100%;
   height: calc(100% - 80px);
-  background-color: ${({ $isOpened }) => ($isOpened ? '#000000' : 'none')};
-  opacity: 0.6;
-  transition: background-color 0.2s ease-in-out;
+  ${({ $isOpened }) => $isOpened && fadeinAnimation};
+  display: ${({ $isOpened }) => ($isOpened ? 'block' : 'none')};
   @media (min-width: 1920px) {
     display: none;
     padding-top: 0px;
   }
 `
 export default function () {
-  const [isMenuOpened, setIsMenuOpened] = useState(false)
+  const [isMenuOpened, setIsMenuOpened] = useState<null | boolean>(null)
   const handleSlideMenu = () => {
     setIsMenuOpened(prev => !prev)
   }
+
+  useEffect(() => {
+    window.addEventListener('resize', () => setIsMenuOpened(false))
+
+    return () => {
+      window.removeEventListener('resize', () => setIsMenuOpened(false))
+    }
+  }, [])
 
   return (
     <SidebarWrap>
